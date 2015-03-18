@@ -23,8 +23,10 @@ import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import magick.ColorspaceType;
 import magick.MagickException;
 import magick.MagickImage;
+import magick.QuantizeInfo;
 import magick.util.MagickBitmap;
 
 public class OCRActivity extends Activity implements OnClickListener {
@@ -61,9 +63,26 @@ public class OCRActivity extends Activity implements OnClickListener {
                 MagickImage magickImage = null;
 
                 try {
+                    QuantizeInfo quantizeInfo = new QuantizeInfo();
+                    quantizeInfo.setColorspace(ColorspaceType.GRAYColorspace);
+                    quantizeInfo.setNumberColors(256);
+                    quantizeInfo.setTreeDepth(8);
+
                     magickImage = MagickBitmap.fromBitmap(bitmap);
-                    //magickImage = magickImage.blurImage(5, 1);
-                    magickImage = magickImage.charcoalImage(5, 1);
+// TODO: DO SOMETHING WITH IT TO RECOGNIZE THE TEXT BETTER
+//                    magickImage.scaleImage(100, 100);
+//                    magickImage.blurImage(5, 1);
+//                    magickImage.blurImage(5, 1);
+//                    magickImage.blurImage(5, 1);
+//                    magickImage.contrastImage(true);
+//                    magickImage.normalizeImage();
+//                    magickImage = magickImage.despeckleImage();
+//                    magickImage.quantizeImage(quantizeInfo);
+//                    magickImage.sharpenImage(5, 1);
+//                    magickImage.negateImage(ColorspaceType.GRAYColorspace);
+
+
+                    //magickImage.thresholdImage(0.02);
                     bitmap = MagickBitmap.ToBitmap(magickImage);
                 } catch (MagickException e) {
                     e.printStackTrace();
