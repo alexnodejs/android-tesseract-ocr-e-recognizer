@@ -165,8 +165,8 @@ public class OCRActivity extends Activity implements OnClickListener {
 
 	private void setPic() {
 		// Get the dimensions of the View
-		int targetW = 1024; //mImage.getWidth();
-		int targetH = 768; //mImage.getHeight();
+		int targetW = 1800; //mImage.getWidth();
+		int targetH = 1200; //mImage.getHeight();
 
 		// Get the dimensions of the bitmap
 		BitmapFactory.Options bmOptions = new BitmapFactory.Options();
