@@ -23,6 +23,10 @@ import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import magick.MagickException;
+import magick.MagickImage;
+import magick.util.MagickBitmap;
+
 public class OCRActivity extends Activity implements OnClickListener {
 	private TessOCR mTessOCR;
 	private TextView mResult;
@@ -53,7 +57,19 @@ public class OCRActivity extends Activity implements OnClickListener {
 			try {
 				is = getContentResolver().openInputStream(uri);
 				Bitmap bitmap = BitmapFactory.decodeStream(is);
-				mImage.setImageBitmap(bitmap);
+
+                MagickImage magickImage = null;
+
+                try {
+                    magickImage = MagickBitmap.fromBitmap(bitmap);
+                    //magickImage = magickImage.blurImage(5, 1);
+                    magickImage = magickImage.charcoalImage(5, 1);
+                    bitmap = MagickBitmap.ToBitmap(magickImage);
+                } catch (MagickException e) {
+                    e.printStackTrace();
+                }
+
+                mImage.setImageBitmap(bitmap);
 				doOCR(bitmap);
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
